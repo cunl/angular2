@@ -1,0 +1,42 @@
+<script src="js/angular-cookies.min.js"></script>
+<script src="js/angularLocalStorage.min.js"></script>
+
+<body ng-app="myApp">
+	<div ng-controller="myCon">
+		
+	</div>
+</body>
+<script>
+	// angularLocalStorage需要在ngCookies前提下执行
+	var app=angular.module('myApp',['ngCookies','angularLocalStorage']);
+
+	app.controller('myCon', ['$scope','storage', function($scope,storage){
+		// localstorage存储的数据为 key：name	value:"lisi"
+		$scope.name="lisi";
+		storage.bind($scope,'name');
+
+
+		// localstorage存储的数据为 key：personName	 value:"zhangsan"
+		// 如果$scope.name的值有赋值，则value为$scope.name
+		$scope.name="lisi";
+		storage.bind($scope,'name',{defaultValue: 'zhangsan' ,storeName: 'personName'});
+
+		// $scope.viewType = 'ANYTHING';
+
+		// 设置key为name，value为张三
+		storage.set('name','zhangsan');
+		// 获取
+		storage.get('name');
+
+		// 如果检查到Cookie现在在回退，不要在Cookie中存储相当大的数据
+		if(!storage.isCookieFallbackActive()) {
+		  console.log(1);
+		}
+
+		// 清空浏览器中存储的所有storage记录
+		storage.clearAll();
+
+		// 以数组的形式返回localstorage中存储的数据的key值
+		console.log(storage.getKeys());
+	}])
+</script>

@@ -1,0 +1,19 @@
+<script>
+	var app=angular.module('app',[]);
+
+	app.controller('con', ['$scope', function($scope){
+		$scope.per={
+			name:"zhangsan"
+		}
+
+		$scope.per2={
+			age:20
+		}
+
+		var newP=angular.merge($scope.per,$scope.per2);
+		// $scope.per和newP结果一样，为$scope.per和$scope.per2结合之后之后的值
+
+		var s=angular.merge({},$scope.per,$scope.per2);
+		// s为$scope.per和$scope.per2结合之后之后的值，$scope.per和$scope.per2的值不变
+	}]);
+</script>

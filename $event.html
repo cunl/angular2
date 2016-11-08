@@ -1,0 +1,30 @@
+<body ng-app="myApp">
+	<div ng-controller="myCon">
+		<input type="text" ng-model="task" ng-keyup="change($event);">
+
+		<ul class="list-group">
+			<!-- track by $index在循环中加上这句代码可以让相同的内容重复，否则就会报错 -->
+			<!-- 使用bootstrap中的图标时，需要引进font文件夹 -->
+			<li ng-repeat="list in tasklist track by $index" class="list-group-item">{{list}}<a href="#" ng-click="remove($index);" class="glyphicon glyphicon-remove"></a></li>
+		</ul>
+	</div>
+</body>
+<script>
+	var app=angular.module("myApp",[]);
+
+	app.controller('myCon', ['$scope', function($scope){
+		$scope.task='';
+		$scope.tasklist=[];
+
+		$scope.change=function(e){
+			if(e.keyCode==13){
+				$scope.tasklist.push($scope.task);
+				$scope.task='';
+			}
+		}
+
+		$scope.remove=function(index){
+			$scope.tasklist.splice(index,1);
+		}
+	}]);
+</script>

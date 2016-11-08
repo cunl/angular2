@@ -1,0 +1,41 @@
+<link rel="stylesheet" href="css/foundation.min.css">
+
+<body ng-app="myApp">
+	<div ng-controller="myCon">
+		<div ng-repeat="(key, value) in obj">
+			{{key+"---"+value}}
+		</div>
+
+		<div ng-cloak>{{hello}}</div>
+		<div ng-cloak>{{person}}</div>
+
+		<input type="text" ng-model="classname">
+		<!-- 用foundation.min.css不能使用ng-class -->
+		<a href="#" class="{{classname}}">btn</a>
+		<a href="#" class="button">Default Button</a>
+	</div>
+</body>
+<script>
+	var app=angular.module("myApp",[]);
+
+	// value的值是可以改变的
+	app.value('person', "lisi");
+	app.value('person', "bigbang");
+
+	// 常量的值不能改变的
+	// constant可以用来定义一个服务器地址,使用过程这个地址都不会被改变
+	// app.constant('http', "http://172.2.69.1:8080");
+	app.constant('hello', "helloworld");
+	app.constant('hello', "helloworld angular");
+
+	app.controller('myCon', ['$scope','person','hello', function($scope,person,hello){
+		$scope.obj={
+			a:"aaa",
+			b:"bbb",
+			c:"ccc"
+		};
+
+		$scope.hello=hello;
+		$scope.person=person;
+	}]);	
+</script>

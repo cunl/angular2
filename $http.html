@@ -1,0 +1,19 @@
+<body ng-controller="myCtrl">
+	<ul class="list-group">
+		<li class="list-group-item" ng-repeat="d in data">{{d.title}}--{{d.year}}</li>
+	</ul>
+</body>
+<script>
+	var app=angular.module('myApp',[]);
+
+	app.controller('myCtrl', ['$scope','$http', function($scope,$http){
+		$http({
+			method:"GET",
+			url:"json/historytoday.json"
+		}).then(function success(res){
+			$scope.data=res.data.result;
+		},function error(error){
+			console.log(error);
+		});
+	}]);
+</script>
